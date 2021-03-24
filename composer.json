@@ -1,6 +1,6 @@
 {
     "name": "luanfreitasdev/livewire-datatable",
-    "description": "A Laravel Livewire table component with searching, sorting, checkboxes, and pagination.",
+    "description": "A Laravel Livewire table component with searching, sorting, checkboxes, pagination and export data.",
     "homepage": "https://github.com/luanfreitasdev/livewire-datatable",
     "license": "MIT",
     "authors": [

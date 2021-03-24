@@ -70,6 +70,10 @@ class DataTableComponent extends Component
      * @var string
      */
     private string $theme = 'bootstrap';
+    /**
+     * @var string
+     */
+    protected $paginationTheme = 'bootstrap';
 
     /**
      * @return $this
