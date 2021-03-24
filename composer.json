@@ -21,7 +21,7 @@
                 "LuanFreitasDev\\LivewireDataTables\\Providers\\DataTableServiceProvider"
             ]
         }
-    }
+    },
     "require": {
         "php": "^7.4|^8.0",
         "livewire/livewire": "^2.4",
