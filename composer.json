@@ -1,0 +1,30 @@
+{
+    "name": "luanfreitasdev/livewire-datatable",
+    "description": "A Laravel Livewire table component with searching, sorting, checkboxes, and pagination.",
+    "homepage": "https://github.com/luanfreitasdev/livewire-datatable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Luan Freitas",
+            "email": "luanfreitasgoncalves@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "LuanFreitasDev\\LivewireDataTables\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LuanFreitasDev\\LivewireDataTables\\Providers\\DataTableServiceProvider"
+            ]
+        }
+    }
+    "require": {
+        "php": "^7.4|^8.0",
+        "livewire/livewire": "^2.4",
+        "shuchkin/simplexlsxgen": "^0.9.25"
+    }
+}
