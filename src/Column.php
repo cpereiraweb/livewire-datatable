@@ -47,6 +47,7 @@ class Column
     public function sortable(): Column
     {
         $this->column['sortable'] = true;
+        $this->column['html'] = false;
         return $this;
     }
 
@@ -63,14 +64,28 @@ class Column
     }
 
     /**
-     * Class tag in html
+     * Class html tag header table
      *
      * @param string $class
      * @return $this
      */
-    public function className(string $class): Column
+    public function headerAttribute(string $class, string $style=null): Column
     {
-        $this->column['class'] = $class;
+        $this->column['header_class'] = $class;
+        $this->column['header_style'] = $style;
+        return $this;
+    }
+
+    /**
+     * Class html tag body table
+     *
+     * @param string $class
+     * @return $this
+     */
+    public function bodyAttribute(string $class, string $style=null): Column
+    {
+        $this->column['body_class'] = $class;
+        $this->column['body_style'] = $style;
         return $this;
     }
 

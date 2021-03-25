@@ -73,7 +73,17 @@ class DataTableComponent extends Component
     /**
      * @var string
      */
-    protected $paginationTheme = 'bootstrap';
+    protected string $paginationTheme = 'bootstrap';
+
+    /**
+     * @var string
+     */
+    public string $icon_sort = '';
+
+    /**
+     * @var array|int[]
+     */
+    public array $perPageValues = [10,25,50,100];
 
     /**
      * @return $this
@@ -119,6 +129,7 @@ class DataTableComponent extends Component
 
     public function mount() {
 
+        $this->icon_sort = 'M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z';
         $this->columns = $this->columns();
 
         if (empty($this->model)) {
@@ -184,7 +195,7 @@ class DataTableComponent extends Component
                     });
 
                     foreach ($collect_data->toArray() as $obj) {
-                        $data[$obj->id] = (object) $obj;
+                        $data[] = (object) $obj;
                     }
                     $collect_data = collect($data);
 
@@ -225,8 +236,10 @@ class DataTableComponent extends Component
             $this->orderBy = $field;
             if ($this->orderAsc === true) {
                 $this->orderAsc = false;
+                $this->icon_sort = 'M3.5 3.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 12.293V3.5zm4 .5a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1h-1zm0 3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 0 1h-3zm0 3a.5.5 0 0 1 0-1h5a.5.5 0 0 1 0 1h-5zM7 12.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5z';
             } else {
                 $this->orderAsc = true;
+                $this->icon_sort = 'M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z';
             }
         }
     }

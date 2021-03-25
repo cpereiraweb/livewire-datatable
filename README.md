@@ -149,7 +149,7 @@ After making a component, you may want to edit the `setUp`, `dataSource`, `colum
                     ->title('Situação')
                     ->field('active')
                     ->html()
-                    ->className('text-center')
+                    ->bodyAttribute('text-center', '')
                     ->searchable()
                     ->visibleInExport(false)
                     ->make(),

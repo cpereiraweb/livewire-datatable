@@ -26,7 +26,7 @@
                     ->field('id')
                     ->searchable()
                     ->sortable()
-                    ->className('text-center')
+                    ->bodyAttribute('text-center', '')
                     ->make(),
     
                 Column::add()
@@ -91,101 +91,110 @@
                 ->showPerPage()                
                 ->showSearchInput();
         }
-    
+
         public function dataSource(): Collection
         {
-            $user = User::query()->get();
-            $data = DataTable::eloquent($user)
-                ->addColumn('id', function(User $user) {
-                    return $user->id;
+            $products = Products::query()->with('group')->get();
+            $data = DataTable::eloquent($products)
+                ->addColumn('id', function(Products $product) {
+                    return $product->id;
+                })        
+                ->addColumn('name', function(Products $product) {
+                    return $product->name;
                 })
-                ->addColumn('active', function(User $user) {
-                    if ($user->id > 5) {
-                        $active = '<span class="badge bg-success">Pago</span>';
-                    } else {
-                        $active = '<span class="badge bg-warning">Pendente</span>';
+                ->addColumn('featured', function(Products $product) {
+                    return ($product->featured == '') ? 'Não': 'Sim';
+                })
+                ->addColumn('subgroup', function(Products $product) {
+                    return $product->group->name;
+                })
+                ->addColumn('type', function(Products $product) {
+                    return $product->productType();
+                })
+                ->addColumn('active', function(Products $product) {
+                    return $product->hasActive();
+                })
+                ->addColumn('active_export', function(Products $product) {
+                    if ($product->active == 1) {
+                        return 'Ativo';
                     }
-                    return $active;
-                })
-                ->addColumn('name', function(User $user) {
-                    return $user->name;
-                })
-                ->addColumn('email', function(User $user) {
-                    return $user->name;
-                })
-                ->addColumn('created_at', function(User $user) {
-                    return Carbon::parse($user->created_at)
-                        ->setTimezone(new DateTimeZone('America/Sao_Paulo'))
-                        ->format('d/m/Y H:i');
-                })
-                ->make();
-    
-            $this->isCollect();
-            return new Collection($data);
-    
-        }
-    
-        public function columns(): array
-        {
-            return [
-                Column::add()
-                    ->title('ID')
-                    ->field('id')
-                    ->searchable()
-                    ->sortable()
-                    ->className('text-center')
-                    ->make(),
-    
-                Column::add()
-                    ->title('Nome')
-                    ->field('name')
-                    ->searchable()
-                    ->sortable()
-                    ->make(),
-    
-                Column::add()
-                    ->title('E-mail')
-                    ->field('email')
-                    ->searchable()
-                    ->sortable()
-                    ->make(),
-    
-                Column::add()
-                    ->title('Situação')
-                    ->field('active')
-                    ->searchable()
-                    ->html()
-                    ->make(),
-    
-                Column::add()
-                    ->title('Criado em')
-                    ->field('created_at')
-                    ->searchable()
-                    ->make(),
-            ];
-        }
-    
-        public function actions(): array
-        {
-            return [
-                Button::add('view')
-                    ->caption('Visualizar')
-                    ->class('btn btn-primary')
-                    ->route('user.view', ['id' => 'id'])
-                    ->make(),
-    
-                Button::add('edit')
-                    ->caption('Editar')
-                    ->class('btn btn-success')
-                    ->route('user.edit', ['id' => 'id'])
-                    ->make(),
-    
-                Button::add('delete')
-                    ->caption('Excluir')
-                    ->class('btn btn-danger')
-                    ->route('user.edit', ['id' => 'id'])
-                    ->make(),
-            ];
-        }
+                        return 'Inativo';
+                    })
+                ->make();        
+                return new Collection($data);
+            }
+        
+            public function columns(): array
+            {
+                return [
+                    Column::add()
+                        ->title('Cod')
+                        ->field('id')
+                        ->searchable()
+                        ->headerAttribute('text-center', 'width:95px')
+                        ->sortable()
+                        ->make(),
+        
+                    Column::add()
+                        ->title('Nome')
+                        ->field('name')
+                        ->searchable()
+                        ->sortable()
+                        ->make(),
+        
+                    Column::add()
+                        ->title('Em destaque')
+                        ->field('featured')
+                        ->searchable()
+                        ->sortable()
+                        ->make(),
+        
+                    Column::add()
+                        ->title('Sub Grupo')
+                        ->field('subgroup')
+                        ->sortable()
+                        ->searchable()
+                        ->make(),
+        
+                    Column::add()
+                        ->title('Tipo')
+                        ->field('type')
+                        ->searchable()
+                        ->sortable()
+                        ->make(),
+        
+                    Column::add()
+                        ->title('Situação')
+                        ->field('active')
+                        ->html()
+                        ->bodyAttribute('text-center')
+                        ->searchable()
+                        ->visibleInExport(false)
+                        ->make(),
+        
+                    Column::add()
+                        ->title('Situação')
+                        ->field('active_export')
+                        ->visibleInExport(true)
+                        ->make(),
+                ];
+            }
+        
+            public function actions(): array
+            {
+                return [
+                    Button::add('edit')
+                        ->i('fa fa-edit', 'Editar')
+                        ->class('btn btn-primary')
+                        ->route('companies.products.edit', ['product' => 'id'])
+                        ->make(),
+        
+                     Button::add('delete')
+                         ->i('fa fa-trash', 'Deletar')
+                         ->class('btn btn-danger')
+                         ->route('companies.products.edit', ['product' => 'id'])
+                         ->make()
+                ];
+            }
     
     }
