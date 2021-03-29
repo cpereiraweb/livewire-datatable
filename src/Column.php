@@ -67,6 +67,7 @@ class Column
      * Class html tag header table
      *
      * @param string $class
+     * @param string|null $style
      * @return $this
      */
     public function headerAttribute(string $class, string $style=null): Column
@@ -80,6 +81,7 @@ class Column
      * Class html tag body table
      *
      * @param string $class
+     * @param string|null $style
      * @return $this
      */
     public function bodyAttribute(string $class, string $style=null): Column
@@ -104,6 +106,23 @@ class Column
     public function visibleInExport(bool $visible): Column
     {
         $this->column['visible_in_export'] = $visible;
+        $this->column['searchable'] = false;
+        return $this;
+    }
+
+
+    /**
+     * Add the @datatableFilter directive before the body
+     *
+     * @param string $class
+     * @return $this
+     */
+    public function filterDateBetween(string $class=''): Column
+    {
+        $this->column['filter_date_between'] = [
+            'enabled' => true,
+            'class' => (blank($class)) ? 'col-3': $class
+        ];
         return $this;
     }
 
@@ -111,5 +130,6 @@ class Column
     {
         return $this->column;
     }
+
 
 }
