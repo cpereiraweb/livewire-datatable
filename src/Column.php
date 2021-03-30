@@ -115,12 +115,17 @@ class Column
      * Add the @datatableFilter directive before the body
      *
      * @param string $class
+     * @param array $config [
+        'only_future' => true,
+        'no_weekends' => true
+     ]
      * @return $this
      */
-    public function filterDateBetween(string $class=''): Column
+    public function filterDateBetween(string $class='', array $config=[]): Column
     {
         $this->column['filter_date_between'] = [
             'enabled' => true,
+            'config' => $config,
             'class' => (blank($class)) ? 'col-3': $class
         ];
         return $this;

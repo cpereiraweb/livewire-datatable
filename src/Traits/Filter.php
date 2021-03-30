@@ -10,6 +10,18 @@ use Illuminate\Support\Collection;
 trait Filter
 {
 
+    /**
+     * https://flatpickr.js.org
+     */
+    public array $defaultDatePikerConfig = [
+        'mode' => 'range',
+        'defaultHour' => 0,
+        'locale' => 'pt',
+        'dateFormat' => 'd/m/Y H:i',
+        'enableTime' => true,
+        'time_24hr' => true
+    ];
+
     public Collection $make_filters;
 
     public Collection $filters;
@@ -26,6 +38,7 @@ trait Filter
     public function clearFilter()
     {
         $this->filter_action = false;
+        $this->filters = collect([]);
     }
 
     private function renderFilter()
@@ -37,6 +50,7 @@ trait Filter
         foreach ($this->columns as $column) {
             if (isset($column['filter_date_between']['enabled'])) {
                 $make_filters['filter_date_between'][$column['field']]['label'] = $column['title'];
+                $make_filters['filter_date_between'][$column['field']]['config'] = $column['filter_date_between']['config'];
                 $make_filters['filter_date_between'][$column['field']]['class'] = $column['filter_date_between']['class'];
             }
         }
