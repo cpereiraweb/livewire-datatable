@@ -35,7 +35,7 @@ trait ActionButton
             Button::add('edit')
                 ->caption('Editar')
                 ->class('btn btn-primary')
-                ->route('user.edit', ['id'])
+                ->route('user.edit', ['product' => 'id'])
                 ->make(),
 
             Button::add('delete')

@@ -146,10 +146,9 @@
                                         >{{$row->$field}}</td>
                                     @endif
                                 @endif
-
                             @endforeach
                             @if(isset($actionBtns) && count($actionBtns))
-                                <td class="text-center" id="td_actions">
+                                <td class="text-center">
                                     <ul class="table-controls">
                                         @foreach($actionBtns as $action)
                                             @php
