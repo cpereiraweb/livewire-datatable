@@ -42,7 +42,7 @@ class {{ componentName }} extends DataTableComponent
                 return $user->name;
             })
             ->addColumn('email', function(User $user) {
-                return $user->name;
+                return $user->email;
             })
             ->addColumn('created_at', function(User $user) {
                 return Carbon::parse($user->created_at)

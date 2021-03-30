@@ -13,7 +13,7 @@ class DataTableCommand extends Command
     {--model= : model Class}
     {--publish : publish stubs file}
     {--template= : name of the file that will be used as a template}
-    {--force : oOverwrite any existing files}';
+    {--force : Overwrite any existing files}';
 
     protected $description = 'Make a new Laravel Livewire table component.';
 

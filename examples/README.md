@@ -81,6 +81,7 @@
 
 ![Laravel Livewire Tables](example2.png)
 
+```php
     class UserTable extends DataTableComponent
     {
         use ActionButton;
@@ -198,3 +199,4 @@
             }
     
     }
+```
