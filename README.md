@@ -46,7 +46,7 @@ You can use either tailwind or bootstrap
 
 [Install Tailwindcss](https://tailwindcss.com/docs/guides/laravel)
 
-[Bootstrap 5](https://getbootstrap.com/docs/5.0/getting-started/introduction/) 
+[Bootstrap 5](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
 
 ---
 # Making Table Components
@@ -85,14 +85,14 @@ This creates your new table component in the `app/Http/Livewire` folder.
 | Method | Arguments | Result | Example |
 |----|----|----|----|
 |**add**| |Add new column |```Column::add()```|
-|**title**| *String* $title |Column title representing a field |```Column::add()->title('Name')```|
-|**field**| *String* $field | Field name| ```Column::add()->field('name')```|
-|**searchable**| |Includes the column in the global search | ```Column::add()->searchable()``` |
-|**sortable**| |Includes column in the sortable list | ```Column::add()->sortable()``` |
-|**headerAttribute**|[*String* $class default: ''], [*String* $style default: '']|Add the class and style elements to the column header|```Column::add()->headerAttribute('text-center', 'color:red')```|
-|**bodyAttribute**|[*String* $class default: ''], [*String* $style default: '']|Add the column lines the class and style elements|```Column::add()->bodyAttribute('text-center', 'color:red')```|
-|**html**| |When the field has any changes within the scope using Collection|```Column::add()->html()```|
-|**visibleInExport**| |When true it will be invisible in the table and will show the column in the exported file|```Column::add()->visibleInExport(true)```|
+|**title**| *String* $title |Column title representing a field |```add()->title('Name')```|
+|**field**| *String* $field | Field name| ```->field('name')```|
+|**searchable**| |Includes the column in the global search | ```->searchable()``` |
+|**sortable**| |Includes column in the sortable list | ```->sortable()``` |
+|**headerAttribute**|[*String* $class default: ''], [*String* $style default: '']|Add the class and style elements to the column header|```->headerAttribute('text-center', 'color:red')```|
+|**bodyAttribute**|[*String* $class default: ''], [*String* $style default: '']|Add the column lines the class and style elements|```->bodyAttribute('text-center', 'color:red')```|
+|**html**| |When the field has any changes within the scope using Collection|```->html()```|
+|**visibleInExport**| |When true it will be invisible in the table and will show the column in the exported file|```->visibleInExport(true)```|
 |**filterDateBetween**| [*String* $class default: 'col-3'] |Include a specific field on the page to filter between the specific date in the column|```Column::add()->filterDateBetween()```|
 ---
 
