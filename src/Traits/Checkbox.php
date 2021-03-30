@@ -32,14 +32,14 @@ trait Checkbox
      * @param string $attribute
      * @return DataTableComponent
      */
-    public function showCheckBox(string $attribute='id'): DataTableComponent
+    public function showCheckBox(string $attribute = 'id'): DataTableComponent
     {
-        if(is_a($this->model, 'Illuminate\Support\Collection')) {
+        if (is_a($this->dataSource(), 'Illuminate\Support\Collection')) {
             $this->checkbox = true;
             $this->checkbox_attribute = 'id';
         } else {
-            if ($this->model != null) {
-                if (Str::contains($attribute, Schema::connection(config('database.default'))->getColumnListing($this->model->getTable()))) {
+            if ($this->dataSource() != null) {
+                if (Str::contains($attribute, Schema::connection(config('database.default'))->getColumnListing($this->dataSource()->getTable()))) {
                     $this->checkbox = true;
                     $this->checkbox_attribute = $attribute;
                 }

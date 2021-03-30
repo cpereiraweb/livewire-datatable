@@ -15,7 +15,8 @@ trait ActionButton
      */
     public array $actionBtns = [];
 
-    public function initActions() {
+    public function initActions()
+    {
         $this->actionBtns = $this->actions();
 
         foreach ($this->actionBtns as $actionBtn) {
@@ -34,7 +35,7 @@ trait ActionButton
             Button::add('edit')
                 ->caption('Editar')
                 ->class('btn btn-primary')
-                ->route('user.edit', ['id'])
+                ->route('user.edit', ['product' => 'id'])
                 ->make(),
 
             Button::add('delete')
@@ -50,7 +51,8 @@ trait ActionButton
      * @param string $params
      * @param string $url
      */
-    public function actionCall(string $action, string $params, string $url='') {
+    public function actionCall(string $action, string $params, string $url = '')
+    {
 
         $this->redirect(route(\Arr::get($this->actionRoutes, $action), json_decode($params, true)));
 

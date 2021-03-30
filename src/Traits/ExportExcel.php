@@ -11,11 +11,11 @@ trait ExportExcel
     public function exportToExcel(): BinaryFileResponse
     {
 
-        $data          = $this->dataSource();
-        $except        = [];
-        $title         = [];
-        $headers       = [];
-        $file_name     = 'excel';
+        $data = $this->dataSource();
+        $except = [];
+        $title = [];
+        $headers = [];
+        $file_name = 'excel';
 
         if (count($this->checkbox_values)) {
             $data = $data->whereIn('id', $this->checkbox_values);
@@ -34,7 +34,7 @@ trait ExportExcel
         }
         $headers[] = $title;
 
-        if(is_a($this->model, 'Illuminate\Support\Collection')) {
+        if (is_a($this->dataSource(), 'Illuminate\Support\Collection')) {
 
             $data = $data->map(function ($item) use ($except) {
                 $item = collect($item);
@@ -44,15 +44,15 @@ trait ExportExcel
 
         } else {
 
-            $file_name  = strtolower($this->model->getTable());
+            $file_name = strtolower($this->dataSource()->getTable());
             $build_xlsx = \SimpleXLSXGen::fromArray(array_merge($headers, $data->get()->toArray()), $file_name);
 
         }
 
         Storage::disk('public')
-            ->put($file_name.'_export.xlsx', $build_xlsx);
+            ->put($file_name . '_export.xlsx', $build_xlsx);
 
         return response()
-            ->download(storage_path("app/public/".$file_name.'_export.xlsx'));
+            ->download(storage_path("app/public/" . $file_name . '_export.xlsx'));
     }
 }

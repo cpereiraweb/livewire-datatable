@@ -84,11 +84,13 @@
                     </tbody>
                 </table>
 
+                @if(!is_array($data))
                 <div class="p-2">
                     @if(method_exists($data, 'links'))
                         {!! $data->links() !!}
                     @endif
                 </div>
+                @endif
             </div>
 
 
