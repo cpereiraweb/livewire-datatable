@@ -14,6 +14,7 @@ trait ExportExcel
         $data = $this->dataSource();
         $except = [];
         $title = [];
+        $fields = [];
         $headers = [];
         $file_name = 'excel';
 
@@ -24,6 +25,7 @@ trait ExportExcel
         foreach ($this->columns as $column) {
             if (!isset($column['visible_in_export'])) {
                 $title[] = $column['title'];
+                $fields[] = $column['field'];
             } else {
                 if ($column['visible_in_export'] === true) {
                     $title[] = $column['title'];
@@ -32,19 +34,20 @@ trait ExportExcel
                 }
             }
         }
+
         $headers[] = $title;
 
-        if (is_a($this->dataSource(), 'Illuminate\Support\Collection')) {
+        if (is_a($data, 'Illuminate\Support\Collection')) {
 
             $data = $data->map(function ($item) use ($except) {
-                $item = collect($item);
-                return $item->except($except)->toArray();
+                return collect($item)->except($except)->toArray();
             });
             $build_xlsx = \SimpleXLSXGen::fromArray(array_merge($headers, $data->toArray()), $file_name);
 
         } else {
 
-            $file_name = strtolower($this->dataSource()->getTable());
+            $file_name = strtolower($data->getTable());
+            $data = $data->select($fields);
             $build_xlsx = \SimpleXLSXGen::fromArray(array_merge($headers, $data->get()->toArray()), $file_name);
 
         }
