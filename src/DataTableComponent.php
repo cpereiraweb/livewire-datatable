@@ -101,10 +101,8 @@ class DataTableComponent extends Component
 
     public function pikerFilter($data)
     {
-
         $input = explode('.', $data[0]['values']);
         $this->filters->put($input[2], $data[0]['selectedDates']);
-
     }
 
     /**
@@ -213,9 +211,8 @@ class DataTableComponent extends Component
                 if (!$this->filter_action) {
 
                     foreach ($this->columns() as $key => $value) {
-                        $field = $value['field'];
                         if ($value['searchable'] === true) {
-                            if (Str::contains($field, Schema::connection(config('database.default'))
+                            if (Str::contains($value['field'], Schema::connection(config('database.default'))
                                 ->getColumnListing($this->dataSource()->getTable()))) {
                                 $filter = $this->columns[$key]['field'];
                                 $data->orWhere($filter, 'like', '%' . $this->search . '%');
